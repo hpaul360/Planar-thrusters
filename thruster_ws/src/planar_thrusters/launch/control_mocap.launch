@@ -1,0 +1,18 @@
+<launch>
+
+  <arg name="gcs_ip"      default="192.168.0.111"/>
+  
+  <include file="$(find mavros)/launch/px4.launch" >
+  	<arg name="fcu_url" value="/dev/ttyUSB0:500000"/>
+  	<arg name="gcs_url" value="udp://@$(arg gcs_ip):14550"/>
+  </include>
+  
+  <include file="$(find mocap_optitrack)/launch/mocap.launch" />
+  
+  <node pkg="planar_thrusters"
+        name="planar_thrust_control"
+        type="planar_thrust_control.py"
+        output="screen">
+  </node>
+  
+</launch>
